@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace DDB.HitPointManager.WebApi
+namespace DDB.HitPointManager.API
 {
     public class Program
     {

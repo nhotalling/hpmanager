@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.HitPointManager.WebApi", "HitPointManager\DDB.HitPointManager.WebApi.csproj", "{77211E82-4535-48A3-8B28-02AAF9C1236A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.HitPointManager.API", "HitPointManager\DDB.HitPointManager.API.csproj", "{77211E82-4535-48A3-8B28-02AAF9C1236A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{77F032EC-77BF-47D5-A93D-FA74E38141C7}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.HitPointManager.Domain", "DDB.HitPointManager.Domain\DDB.HitPointManager.Domain.csproj", "{61C1415F-575C-4464-B898-3C5025FC687A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +22,10 @@ Global
 		{77211E82-4535-48A3-8B28-02AAF9C1236A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77211E82-4535-48A3-8B28-02AAF9C1236A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77211E82-4535-48A3-8B28-02AAF9C1236A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61C1415F-575C-4464-B898-3C5025FC687A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61C1415F-575C-4464-B898-3C5025FC687A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61C1415F-575C-4464-B898-3C5025FC687A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61C1415F-575C-4464-B898-3C5025FC687A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

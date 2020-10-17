@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace DDB.HitPointManager.WebApi
+namespace DDB.HitPointManager.API
 {
     public class Startup
     {
