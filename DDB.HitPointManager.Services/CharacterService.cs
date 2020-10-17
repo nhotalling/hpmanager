@@ -30,6 +30,15 @@ namespace DDB.HitPointManager.Services
 
         public int CalculateMaxHp(Character character)
         {
+            // Calculate CON bonus
+
+            // Get first level HP (max)
+            // TODO - Do we need an indicator on the character to show which was
+            // its first character class?
+            // For demo purposes, we're using the max HD value for level 1.
+
+            // Get remaining levels - average
+            // Using the average method to provide consistent testing results.
             return 10;
         }
     }
