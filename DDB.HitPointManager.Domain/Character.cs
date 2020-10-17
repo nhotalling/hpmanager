@@ -12,15 +12,15 @@ namespace DDB.HitPointManager.Domain
         public int Level { get; set; }
 
         [JsonPropertyName("classes")]
-        public List<CharacterClass> Classes { get; set; }
+        public IEnumerable<CharacterClass> Classes { get; set; }
 
         [JsonPropertyName("stats")]
         public Stats Stats { get; set; }
 
         [JsonPropertyName("items")]
-        public List<Item> Items { get; set; }
+        public IEnumerable<Item> Items { get; set; }
 
         [JsonPropertyName("defenses")]
-        public List<Defense> Defenses { get; set; }
+        public IEnumerable<Defense> Defenses { get; set; }
     }
 }

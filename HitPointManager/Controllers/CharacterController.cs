@@ -47,7 +47,7 @@ namespace DDB.HitPointManager.API.Controllers
         }
 
         [HttpPut("{name}/damage")]
-        public ActionResult<CharacterHealth> DealDamage(int name, [FromBody] List<DamageRequest> damage)
+        public ActionResult<CharacterHealth> DealDamage(int name, [FromBody] IEnumerable<DamageRequest> damage)
         {
             return Ok();
         }

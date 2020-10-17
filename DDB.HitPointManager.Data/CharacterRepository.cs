@@ -18,14 +18,14 @@ namespace DDB.HitPointManager.Data
 
     public class CharacterRepository : ICharacterRepository
     {
-        private readonly IList<Character> _characters;
+        private readonly IEnumerable<Character> _characters;
 
         public CharacterRepository()
         {
             // Load all characters when object instantiated
             var rootDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             var json = File.ReadAllText($"{rootDir}/data/characters.json");
-            _characters = JsonSerializer.Deserialize<List<Character>>(json);
+            _characters = JsonSerializer.Deserialize<IEnumerable<Character>>(json);
         }
 
         public Character GetByName(string name)

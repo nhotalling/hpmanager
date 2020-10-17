@@ -11,7 +11,7 @@ namespace DDB.HitPointManager.Services
     public interface ICharacterManager
     {
         CharacterHealth AddTempHp(string name, int amount);
-        CharacterHealth DealDamage(string name, List<DamageRequest> damage);
+        CharacterHealth DealDamage(string name, IEnumerable<DamageRequest> damage);
 
         Character GetCharacter(string name);
         CharacterHealth GetStatus(string name);
@@ -35,7 +35,7 @@ namespace DDB.HitPointManager.Services
             throw new System.NotImplementedException();
         }
 
-        public CharacterHealth DealDamage(string name, List<DamageRequest> damage)
+        public CharacterHealth DealDamage(string name, IEnumerable<DamageRequest> damage)
         {
             throw new System.NotImplementedException();
         }
