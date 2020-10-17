@@ -10,7 +10,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.HitPointManager.Domain", "DDB.HitPointManager.Domain\DDB.HitPointManager.Domain.csproj", "{61C1415F-575C-4464-B898-3C5025FC687A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.HitPointManager.Domain", "DDB.HitPointManager.Domain\DDB.HitPointManager.Domain.csproj", "{61C1415F-575C-4464-B898-3C5025FC687A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.HitPointManager.Data", "DDB.HitPointManager.Data\DDB.HitPointManager.Data.csproj", "{AAA3114B-C4E0-415E-8F81-716360537DC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDB.HitPointManager.Core", "DDB.HitPointManager.Core\DDB.HitPointManager.Core.csproj", "{57AA85A8-97FA-4702-BBE0-42907BC960BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDB.HitPointManager.Services", "DDB.HitPointManager.Services\DDB.HitPointManager.Services.csproj", "{91845EAE-9517-44F0-B673-D879DB0916EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +32,18 @@ Global
 		{61C1415F-575C-4464-B898-3C5025FC687A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61C1415F-575C-4464-B898-3C5025FC687A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61C1415F-575C-4464-B898-3C5025FC687A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA3114B-C4E0-415E-8F81-716360537DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA3114B-C4E0-415E-8F81-716360537DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA3114B-C4E0-415E-8F81-716360537DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA3114B-C4E0-415E-8F81-716360537DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57AA85A8-97FA-4702-BBE0-42907BC960BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57AA85A8-97FA-4702-BBE0-42907BC960BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57AA85A8-97FA-4702-BBE0-42907BC960BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57AA85A8-97FA-4702-BBE0-42907BC960BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91845EAE-9517-44F0-B673-D879DB0916EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91845EAE-9517-44F0-B673-D879DB0916EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91845EAE-9517-44F0-B673-D879DB0916EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91845EAE-9517-44F0-B673-D879DB0916EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
