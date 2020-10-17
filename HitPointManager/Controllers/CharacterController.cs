@@ -10,11 +10,11 @@ namespace DDB.HitPointManager.API.Controllers
     [ApiVersion("1.0")]
     public class CharacterController : ControllerBase
     {
-        private readonly ICharacterService _characterService;
+        private readonly ICharacterManager _characterManager;
 
-        public CharacterController(ICharacterService characterService)
+        public CharacterController(ICharacterManager characterManager)
         {
-            _characterService = characterService;
+            _characterManager = characterManager;
         }
 
         [HttpGet("{name}")]
@@ -25,7 +25,7 @@ namespace DDB.HitPointManager.API.Controllers
             // handle catching certain exceptions to return appropriate status codes
             // (like 404 when and object isn't found)
 
-            var result = _characterService.GetCharacter(name);
+            var result = _characterManager.GetCharacter(name);
             if (result == null)
             {
                 return NotFound();
@@ -34,22 +34,35 @@ namespace DDB.HitPointManager.API.Controllers
             return Ok(result);
         }
 
-        // POST api/<CharacterController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet("{name}/status")]
+        public ActionResult<CharacterHealth> GetStatus(string name)
         {
+            var result = _characterManager.GetCharacter(name);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
 
-        // PUT api/<CharacterController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{name}/damage")]
+        public ActionResult<CharacterHealth> DealDamage(int name, [FromBody] List<DamageRequest> damage)
         {
+            return Ok();
         }
 
-        // DELETE api/<CharacterController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut("{name}/heal/{amount}")]
+        public ActionResult<CharacterHealth> Heal(int name, int amount)
         {
+            return Ok();
         }
+
+        [HttpPut("{name}/temp/{amount}")]
+        public ActionResult<CharacterHealth> AddTempHp(int name, int amount)
+        {
+            return Ok();
+        }
+
     }
 }

@@ -5,8 +5,8 @@ Hit Point Manager is a proof of concept that loads a simple character,
 calculates its starting hit points (using the rounded average method),
 and manages its hit points.
 
-Before building and running the application, you may modify the characters.json
-file found in the DDB.HitPointManager.Data/data folder.
+Before building and running the application, you may modify the `characters.json`
+file found in the `DDB.HitPointManager.Data/data` folder.
 
 ## Running Hit Point Manager in Docker
 
