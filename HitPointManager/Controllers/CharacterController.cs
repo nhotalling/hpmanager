@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DDB.HitPointManager.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DDB.HitPointManager.API.Controllers
@@ -8,6 +9,13 @@ namespace DDB.HitPointManager.API.Controllers
     [ApiVersion("1.0")]
     public class CharacterController : ControllerBase
     {
+        private readonly ICharacterService _characterService;
+
+        public CharacterController(ICharacterService characterService)
+        {
+            _characterService = characterService;
+        }
+
         // GET: api/<CharacterController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -16,10 +24,11 @@ namespace DDB.HitPointManager.API.Controllers
         }
 
         // GET api/<CharacterController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{name}")]
+        public string Get(string name)
         {
-            return "value";
+            var result = _characterService.GetCharacter(name);
+            return result.Name;
         }
 
         // POST api/<CharacterController>

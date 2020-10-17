@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DDB.HitPointManager.Data\DDB.HitPointManager.Data.csproj" />
+    <ProjectReference Include="..\DDB.HitPointManager.Domain\DDB.HitPointManager.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,3 +1,4 @@
+using DDB.HitPointManager.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,8 @@ namespace DDB.HitPointManager.API
                 config.AssumeDefaultVersionWhenUnspecified = true;
                 config.ReportApiVersions = true;
             });
+            // Dependency injection
+            services.AddScoped<ICharacterService, CharacterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
