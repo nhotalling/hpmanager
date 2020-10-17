@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DDB.HitPointManager.Data\DDB.HitPointManager.Data.csproj" />
     <ProjectReference Include="..\DDB.HitPointManager.Domain\DDB.HitPointManager.Domain.csproj" />
     <ProjectReference Include="..\DDB.HitPointManager.Services\DDB.HitPointManager.Services.csproj" />
   </ItemGroup>

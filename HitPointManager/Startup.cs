@@ -1,3 +1,4 @@
+using DDB.HitPointManager.Data;
 using DDB.HitPointManager.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,7 @@ namespace DDB.HitPointManager.API
             });
             // Dependency injection
             services.AddScoped<ICharacterService, CharacterService>();
+            services.AddScoped<ICharacterRepository, CharacterRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

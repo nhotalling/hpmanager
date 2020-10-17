@@ -1,4 +1,5 @@
-﻿using DDB.HitPointManager.Domain;
+﻿using DDB.HitPointManager.Data;
+using DDB.HitPointManager.Domain;
 
 namespace DDB.HitPointManager.Services
 {
@@ -9,14 +10,20 @@ namespace DDB.HitPointManager.Services
 
     public class CharacterService : ICharacterService
     {
+        private readonly ICharacterRepository _characterRepository;
+
+        public CharacterService(ICharacterRepository characterRepository)
+        {
+            _characterRepository = characterRepository;
+        }
+
+
         // TODO - Add CharacterDto
 
         public Character GetCharacter(string name)
         {
-            return new Character
-            {
-                Name = "Test from Service"
-            };
+            // if character == null, throw 404
+            return _characterRepository.GetCharacterByName(name);
         }
     }
 }
