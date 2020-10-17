@@ -1,11 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DDB.HitPointManager.Core\DDB.HitPointManager.Core.csproj" />
     <ProjectReference Include="..\DDB.HitPointManager.Domain\DDB.HitPointManager.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="data\characters.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

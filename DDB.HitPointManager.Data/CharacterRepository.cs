@@ -1,21 +1,34 @@
-﻿using DDB.HitPointManager.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text.Json;
+using DDB.HitPointManager.Domain;
 
 namespace DDB.HitPointManager.Data
 {
     public interface ICharacterRepository
     {
-        Character GetCharacterByName(string name);
+        Character GetByName(string name);
     }
 
     public class CharacterRepository : ICharacterRepository
     {
-        public Character GetCharacterByName(string name)
+        private readonly IList<Character> _characters;
+
+        public CharacterRepository()
         {
-            // TODO - Make hashmap to store loaded character and use it for cache
-            return new Character
-            {
-                Name = "Character from Repository"
-            };
+            // Load all characters when object instantiated
+            var rootDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            var json = File.ReadAllText($"{rootDir}/data/characters.json");
+            _characters = JsonSerializer.Deserialize<List<Character>>(json);
+        }
+
+        public Character GetByName(string name)
+        {
+            return _characters.FirstOrDefault(obj =>
+                obj.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

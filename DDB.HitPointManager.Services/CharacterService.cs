@@ -18,12 +18,11 @@ namespace DDB.HitPointManager.Services
         }
 
 
-        // TODO - Add CharacterDto
+        // Typically we'd use a Dto here instead of returning the entity
 
         public Character GetCharacter(string name)
         {
-            // if character == null, throw 404
-            return _characterRepository.GetCharacterByName(name);
+            return _characterRepository.GetByName(name);
         }
     }
 }

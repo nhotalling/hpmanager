@@ -30,7 +30,10 @@ namespace DDB.HitPointManager.API
             });
             // Dependency injection
             services.AddScoped<ICharacterService, CharacterService>();
-            services.AddScoped<ICharacterRepository, CharacterRepository>();
+            services.AddScoped<ICharacterHealthService, CharacterHealthService>();
+            services.AddScoped<ICharacterManager, CharacterManager>();
+            services.AddSingleton<ICharacterRepository, CharacterRepository>();
+            services.AddSingleton<ICharacterHealthRepository, CharacterHealthRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
