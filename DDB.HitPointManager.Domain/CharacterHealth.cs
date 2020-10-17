@@ -11,14 +11,14 @@ namespace DDB.HitPointManager.Domain
         public string Name { get; set; }
 
         [JsonPropertyName("maxHp")]
-        public string MaxHp { get; set; }
+        public int MaxHp { get; set; }
 
         [JsonPropertyName("currentHp")]
-        public string CurrentHp { get; set; }
+        public int CurrentHp { get; set; }
 
         [JsonPropertyName("tempHp")]
-        public string TempHp { get; set; }
+        public int TempHp { get; set; }
 
-        // Improvement: Track Death Saves, Conditions, Status (Alive, Dead, Unconscious)
+        // Improvements: Track Death Saves, Conditions, Status (Alive, Dead, Unconscious)
     }
 }

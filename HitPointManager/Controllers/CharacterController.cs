@@ -37,7 +37,7 @@ namespace DDB.HitPointManager.API.Controllers
         [HttpGet("{name}/status")]
         public ActionResult<CharacterHealth> GetStatus(string name)
         {
-            var result = _characterManager.GetCharacter(name);
+            var result = _characterManager.GetStatus(name);
             if (result == null)
             {
                 return NotFound();

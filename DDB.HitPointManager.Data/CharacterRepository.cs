@@ -8,6 +8,9 @@ using DDB.HitPointManager.Domain;
 
 namespace DDB.HitPointManager.Data
 {
+     /// <summary>
+     /// Handles loading characters from a data source
+     /// </summary>
     public interface ICharacterRepository
     {
         Character GetByName(string name);

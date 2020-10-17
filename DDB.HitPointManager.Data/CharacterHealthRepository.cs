@@ -5,7 +5,7 @@ using DDB.HitPointManager.Domain;
 namespace DDB.HitPointManager.Data
 {
     /// <summary>
-    /// Tracks a character's health for the life of the application
+    /// Responsible for loading/saving a character's health for the life of the application
     /// </summary>
     public interface ICharacterHealthRepository
     {
@@ -24,7 +24,7 @@ namespace DDB.HitPointManager.Data
 
         public CharacterHealth GetByName(string name)
         {
-            _characterDictionary.TryGetValue(name, out var characterHealth);
+            _characterDictionary.TryGetValue(name.ToLower(), out var characterHealth);
             return characterHealth;
         }
 
@@ -35,7 +35,7 @@ namespace DDB.HitPointManager.Data
                 throw new ArgumentException("CharacterHealth must not be null and must have a valid Name");
             }
 
-            _characterDictionary[characterHealth.Name] = characterHealth;
+            _characterDictionary[characterHealth.Name.ToLower()] = characterHealth;
         }
     }
 }
