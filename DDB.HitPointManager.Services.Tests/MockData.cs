@@ -22,6 +22,17 @@ namespace DDB.HitPointManager.Services.Tests
             }
         }
 
+        public CharacterHealth GetBrivHealth()
+        {
+            return new CharacterHealth
+            {
+                MaxHp = 45,
+                CurrentHp = 45,
+                TempHp = 0,
+                Name = "Briv"
+            };
+        }
+
         private readonly string CharacterJson = @"[
   {
     ""name"": ""Briv"",

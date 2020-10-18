@@ -64,12 +64,13 @@ namespace DDB.HitPointManager.Services
 
             var damageTaken = CalculateDamage(damageRequest, character.Defenses);
 
-            var updatedHealth = ApplyDamage(damageTaken, originalHealth);
-
-            if (damageTaken > 0)
+            if (damageTaken == 0)
             {
-                _characterHealthService.Save(updatedHealth);
+                return originalHealth;
             }
+
+            var updatedHealth = ApplyDamage(damageTaken, originalHealth);
+            _characterHealthService.Save(updatedHealth);
 
             return updatedHealth;
         }
@@ -141,6 +142,27 @@ namespace DDB.HitPointManager.Services
                 return originalHealth;
             }
             var updatedHealth = originalHealth.Clone();
+            var remainingDamage = damage;
+
+            // the if checks aren't strictly necessary since the math.min would handle 0
+            // but they help describe the intent.
+
+            if (updatedHealth.TempHp > 0)
+            {
+                var tempDamage = Math.Min(updatedHealth.TempHp, remainingDamage);
+                updatedHealth.TempHp -= tempDamage;
+                remainingDamage -= tempDamage;
+            }
+
+            if (remainingDamage > 0)
+            {
+                var hpDamage = Math.Min(updatedHealth.CurrentHp, remainingDamage);
+                updatedHealth.CurrentHp -= hpDamage;
+                remainingDamage -= hpDamage;
+
+                // if CurrentHp <= 0, character is unconscious
+                // if remainingDamage >= MaxHp, character is killed
+            }
 
             return updatedHealth;
         }

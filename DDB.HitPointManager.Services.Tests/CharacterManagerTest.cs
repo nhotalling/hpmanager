@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace DDB.HitPointManager.Services.Tests
 {
     [TestFixture]
-    public class CharacterManagerTest
+    public class CharacterManagerTest : MockData
     {
         private ICharacterManager _subject;
         private Mock<ICharacterService> _mockCharacterService;
@@ -115,9 +115,6 @@ namespace DDB.HitPointManager.Services.Tests
 
             Assert.That(() => _subject.Heal("Briv", -10), Throws.ArgumentException);
         }
-
-        // Saves if > 0
-        // Does not save if 0
 
         [Test]
         public void CalculateDamage_AppliesImmunity()
@@ -318,6 +315,124 @@ namespace DDB.HitPointManager.Services.Tests
             };
             var result = _subject.CalculateDamage(damage, defense);
             Assert.AreEqual(4, result);
+        }
+
+        [Test]
+        public void ApplyDamage_DamageExceedsTempHp()
+        {
+            var health = new CharacterHealth
+            {
+                CurrentHp = 30,
+                MaxHp = 30,
+                TempHp = 5
+            };
+            var result = _subject.ApplyDamage(10, health);
+            Assert.AreEqual(0, result.TempHp);
+            Assert.AreEqual(25, result.CurrentHp);
+        }
+
+        [Test]
+        public void ApplyDamage_TempHpExceedsDamage()
+        {
+            var health = new CharacterHealth
+            {
+                CurrentHp = 30,
+                MaxHp = 30,
+                TempHp = 5
+            };
+            var result = _subject.ApplyDamage(4, health);
+            Assert.AreEqual(1, result.TempHp);
+            Assert.AreEqual(30, result.CurrentHp);
+        }
+
+        [Test]
+        public void ApplyDamage_DamageExceedsHp()
+        {
+            var health = new CharacterHealth
+            {
+                CurrentHp = 30,
+                MaxHp = 30,
+                TempHp = 0
+            };
+            var result = _subject.ApplyDamage(100, health);
+            Assert.AreEqual(0, result.TempHp);
+            Assert.AreEqual(0, result.CurrentHp);
+        }
+
+        [Test]
+        public void ApplyDamage_HpExceedsDamage()
+        {
+            var health = new CharacterHealth
+            {
+                CurrentHp = 30,
+                MaxHp = 30,
+                TempHp = 0
+            };
+            var result = _subject.ApplyDamage(12, health);
+            Assert.AreEqual(0, result.TempHp);
+            Assert.AreEqual(18, result.CurrentHp);
+        }
+
+        [Test]
+        public void DealDamage_SavesTheNewResult()
+        {
+            var originalHealth = GetBrivHealth();
+            _mockCharacterService.Setup(service =>
+                    service.GetCharacter(It.IsAny<string>()))
+                            .Returns(GetTestCharacter("Briv"));
+            _mockCharacterHealthService.Setup(service =>
+                    service.GetCharacterHealth(It.IsAny<string>()))
+                            .Returns(originalHealth);
+            var savedObject = new CharacterHealth();
+            _mockCharacterHealthService.Setup(service =>
+                    service.Save(It.IsAny<CharacterHealth>()))
+                .Callback<CharacterHealth>(obj => savedObject = obj);
+            var damage = new List<DamageRequest>
+            {
+                new DamageRequest
+                {
+                    Type = DamageType.Cold,
+                    Value = 6
+                },
+                new DamageRequest
+                {
+                    Type = DamageType.Slashing,
+                    Value = 10
+                }
+            };
+            var result = _subject.DealDamage("Briv", damage);
+            Assert.AreEqual(34, result.CurrentHp);
+            _mockCharacterHealthService.Verify(mock => 
+                mock.Save(It.IsAny<CharacterHealth>()), Times.Once);
+            Assert.AreEqual(34, savedObject.CurrentHp);
+            Assert.AreEqual(originalHealth.MaxHp, savedObject.MaxHp);
+            Assert.AreEqual(originalHealth.TempHp, savedObject.TempHp);
+            Assert.AreEqual(originalHealth.Name, savedObject.Name);
+        }
+
+        [Test]
+        public void DealDamage_DoesNotSaveTheNewResult()
+        {
+            var originalHealth = GetBrivHealth();
+            _mockCharacterService.Setup(service =>
+                    service.GetCharacter(It.IsAny<string>()))
+                .Returns(GetTestCharacter("Briv"));
+            _mockCharacterHealthService.Setup(service =>
+                    service.GetCharacterHealth(It.IsAny<string>()))
+                .Returns(originalHealth);
+
+            var damage = new List<DamageRequest>
+            {
+                new DamageRequest
+                {
+                    Type = DamageType.Fire,
+                    Value = 1000
+                }
+            };
+            var result = _subject.DealDamage("Briv", damage);
+            Assert.AreEqual(originalHealth.CurrentHp, result.CurrentHp);
+            _mockCharacterHealthService.Verify(mock =>
+                mock.Save(It.IsAny<CharacterHealth>()), Times.Never);
         }
     }
 }
