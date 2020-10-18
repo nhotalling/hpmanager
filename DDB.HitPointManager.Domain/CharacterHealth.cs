@@ -15,5 +15,11 @@ namespace DDB.HitPointManager.Domain
 
         [JsonPropertyName("tempHp")]
         public int TempHp { get; set; }
+
+        public CharacterHealth Clone()
+        {
+            // shallow copy is okay since properties are primitives
+            return (CharacterHealth) MemberwiseClone();
+        }
     }
 }

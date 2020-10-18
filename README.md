@@ -27,8 +27,9 @@ in order to verify the app is running.
   A 'starting class' indicator could be added to the classes or the max HD could be used. For purposes of this demo,
   the first class in the list is used to determine level 1 HP.
 - Assumed vulnerability should also be considered along with immunity and resistance.
+- Assumed handling damage modifiers was out of scope.
 - Assumed that stat bonuses stack and that multiple copies of an item are not included on a character.
-- Assumed that handling character death was out of scope (excessive damage, no healing if dead)
+- Assumed that handling character death was out of scope (excessive damage, no healing if dead).
 
 ## Testing the App
 
@@ -53,10 +54,12 @@ Restores the character to starting values
 
 - Enums - Some properties such as damage types, and defense types (vulnerability, etc) were made into enums to
   assist with strongly typing things. However, it could be argued this reduces flexibility
-  in the event new types are introduced. Modifer.AffectedValue was left as a string since it could potentially
-  target various fields other than a character stat.
+  in the event new types are introduced and properties could be easily changed back to strings.
+  Modifer.AffectedValue was left as a string since it could potentially target various fields other than a character stat.
 - Error handling - Wire up some global error handling so the API returns an appropriate response
   based on the error type and code does not have to worry about catching/handling errors.
 - CharacterHealth responses could be improved to include other stats like Status (Alive, Unconscious, Dead),
   death saves, conditions, etc.
 - Damage endpoint could check for excessive damage (character HP max) that causes character death.
+- Add considerations for magic/nonmagic damage
+- Add considerations for defense allowing modifiers (eg reduce all damage by 5)
