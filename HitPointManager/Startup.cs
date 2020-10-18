@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using DDB.HitPointManager.Data;
 using DDB.HitPointManager.Services;
 using Microsoft.AspNetCore.Builder;
@@ -21,13 +23,19 @@ namespace DDB.HitPointManager.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                    .AddJsonOptions(options =>
+                    {
+                        // Serialize enums as camelCase
+                        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+                    });
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
                 config.AssumeDefaultVersionWhenUnspecified = true;
                 config.ReportApiVersions = true;
             });
+
             // Dependency injection
             services.AddScoped<ICharacterService, CharacterService>();
             services.AddScoped<ICharacterHealthService, CharacterHealthService>();

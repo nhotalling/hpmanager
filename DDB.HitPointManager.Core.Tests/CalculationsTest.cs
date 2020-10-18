@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 namespace DDB.HitPointManager.Core.Tests
 {
+    [TestFixture]
     public class CalculationsTest
     {
         [SetUp]

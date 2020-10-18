@@ -8,6 +8,6 @@ namespace DDB.HitPointManager.Domain
         public string Type { get; set; }
 
         [JsonPropertyName("defense")]
-        public string Name { get; set; }
+        public DefenseType DefenseType { get; set; }
     }
 }

@@ -1,8 +1,7 @@
-﻿
-# Hit Point Manager
+﻿# Hit Point Manager
 
-Hit Point Manager is a proof of concept that loads a simple character,
-calculates its starting hit points (using the rounded average method),
+Hit Point Manager is a proof of concept API that loads a simple character,
+calculates its starting hit points (using the rounded-up average method),
 and manages its hit points.
 
 Before building and running the application, you may modify the `characters.json`
@@ -18,9 +17,17 @@ docker build -t hpmanager .
 docker run --rm -d -p 8080:80 --name ddbhpmanager hpmanager
 ```
 
-Once the app is running, open a browser and navigate to 
+Once the app is running, open a browser and navigate to
 http://localhost:8080/api/v1/character/briv
 in order to verify the app is running.
+
+## Assumptions
+
+- There is no indicator for which class is the character's starting class (used to determine max HP at level 1).
+  A 'starting class' indicator could be added to the classes or the max HD could be used. For purposes of this demo,
+  the first class in the list is used to determine level 1 HP.
+- Assumed vulnerability should also be considered along with immunity and resistance.
+- Assumed that stat bonuses stack and that multiple copies of an item are not included.
 
 ## Testing the App
 
@@ -31,4 +38,16 @@ appropriately by the UI in a production environment.
 
 ### Heal
 
-### Add Temporary Hit Points 
+### Add Temporary Hit Points
+
+### Reset
+
+Restores the character to starting values
+
+## Misc - Notes, Areas for Improvement
+
+- Enums - Some properties such as damage types, and defense types (vulnerability, etc) were made into enums to
+  assist with strongly typing things. However, it could be argued this reduces flexibility
+  in the event new types are introduced. Modifer.AffectedValue was left as a string since it could potentially
+  target various fields other than a character stat.
+- Stacking bon

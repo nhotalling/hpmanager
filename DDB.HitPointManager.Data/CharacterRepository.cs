@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using DDB.HitPointManager.Domain;
 
 namespace DDB.HitPointManager.Data
@@ -25,7 +26,9 @@ namespace DDB.HitPointManager.Data
             // Load all characters when object instantiated
             var rootDir = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
             var json = File.ReadAllText($"{rootDir}/data/characters.json");
-            _characters = JsonSerializer.Deserialize<IEnumerable<Character>>(json);
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+            _characters = JsonSerializer.Deserialize<IEnumerable<Character>>(json, options);
         }
 
         public Character GetByName(string name)
