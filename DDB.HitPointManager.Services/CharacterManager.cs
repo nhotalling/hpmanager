@@ -71,7 +71,18 @@ namespace DDB.HitPointManager.Services
 
         public CharacterHealth Heal(string name, int amount)
         {
-            throw new System.NotImplementedException();
+            var health = GetCharacterHealth(name);
+
+            if (amount < 0)
+            {
+                throw new ArgumentException("Amount healed should be 0 or greater");
+            }
+
+            // Improvement - disallow healing if character is dead
+            health.CurrentHp = Math.Min(amount + health.CurrentHp, health.MaxHp);
+            _characterHealthService.Save(health);
+
+            return health;
         }
 
         internal CharacterHealth GetCharacterHealth(string name)

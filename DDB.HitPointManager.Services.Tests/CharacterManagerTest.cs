@@ -68,5 +68,51 @@ namespace DDB.HitPointManager.Services.Tests
 
             Assert.AreEqual(10, result.TempHp);
         }
+
+        [Test]
+        public void Heal_IncreasesCurrentHp()
+        {
+            _mockCharacterHealthService.Setup(service =>
+                    service.GetCharacterHealth(It.IsAny<string>()))
+                .Returns(new CharacterHealth
+                {
+                    CurrentHp = 2,
+                    MaxHp = 25
+                });
+
+            var result = _subject.Heal("Briv", 10);
+
+            Assert.AreEqual(12, result.CurrentHp);
+        }
+
+        [Test]
+        public void Heal_DoesNotExceedMaxHp()
+        {
+            _mockCharacterHealthService.Setup(service =>
+                    service.GetCharacterHealth(It.IsAny<string>()))
+                .Returns(new CharacterHealth
+                {
+                    CurrentHp = 2,
+                    MaxHp = 25
+                });
+
+            var result = _subject.Heal("Briv", 1000);
+
+            Assert.AreEqual(25, result.CurrentHp);
+        }
+
+        [Test]
+        public void Heal_ThrowsForNegativeValues()
+        {
+            _mockCharacterHealthService.Setup(service =>
+                    service.GetCharacterHealth(It.IsAny<string>()))
+                .Returns(new CharacterHealth
+                {
+                    CurrentHp = 2,
+                    MaxHp = 25
+                });
+
+            Assert.That(() => _subject.Heal("Briv", -10), Throws.ArgumentException);
+        }
     }
 }
