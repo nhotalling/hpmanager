@@ -45,12 +45,24 @@ namespace DDB.HitPointManager.Services
             // Determine CON bonus to apply at every level
             var conBonus = CalculateStatBonus(character, StatType.Constitution);
 
-            // Get first level HP (max)
-            // Improvement - Add an boolean to the CharacterClass that indicates if the class was the starting class.
-            // For demo purposes, we will assume the first class in the list
+            var isFirstLevel = true;
+            character.Classes.ToList().ForEach(charClass =>
+            {
+                var classLevels = charClass.ClassLevel;
+                if (isFirstLevel)
+                {
+                    // Get first level HP (max)
+                    // Improvement - Add an boolean to the CharacterClass that indicates if the class was the starting class.
+                    // For demo purposes, we will assume the first class in the list was the starting class
+                    isFirstLevel = false;
+                    hp = charClass.HitDiceValue + conBonus;
+                    classLevels -= 1;
+                }
 
-            // Get remaining levels - average
-            // Using the average method to provide consistent testing results.
+                hp += Calculations.GetAvgHitPoints(charClass.HitDiceValue) * classLevels;
+                hp += conBonus * classLevels;
+            });
+
             return hp;
         }
 

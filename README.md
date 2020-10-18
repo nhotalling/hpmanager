@@ -50,4 +50,5 @@ Restores the character to starting values
   assist with strongly typing things. However, it could be argued this reduces flexibility
   in the event new types are introduced. Modifer.AffectedValue was left as a string since it could potentially
   target various fields other than a character stat.
-- Stacking bon
+- Error handling - Would like to wire up some global error handling so the API returns an appropriate response
+  based on the error type.
