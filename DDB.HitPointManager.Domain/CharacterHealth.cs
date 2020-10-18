@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace DDB.HitPointManager.Domain
 {
@@ -18,7 +15,5 @@ namespace DDB.HitPointManager.Domain
 
         [JsonPropertyName("tempHp")]
         public int TempHp { get; set; }
-
-        // Improvements: Track Death Saves, Conditions, Status (Alive, Dead, Unconscious)
     }
 }

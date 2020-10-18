@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DDB.HitPointManager.Core;
 using DDB.HitPointManager.Domain;
 
@@ -32,7 +33,25 @@ namespace DDB.HitPointManager.Services
         public CharacterHealth AddTempHp(string name, int amount)
         {
             var health = GetCharacterHealth(name);
-            throw new System.NotImplementedException();
+            int newTempHp;
+
+            if (amount < 0)
+            {
+                // Allowing user to send negative temp hp
+                // as a means to correct an error
+                newTempHp = health.TempHp + amount;
+                newTempHp = Math.Max(0, newTempHp);
+            }
+            else
+            {
+                // Temp HP do not stack
+                newTempHp = Math.Max(amount, health.TempHp);
+            }
+
+            health.TempHp = newTempHp;
+            _characterHealthService.Save(health);
+
+            return health;
         }
 
         public CharacterHealth DealDamage(string name, IEnumerable<DamageRequest> damage)

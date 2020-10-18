@@ -27,7 +27,8 @@ in order to verify the app is running.
   A 'starting class' indicator could be added to the classes or the max HD could be used. For purposes of this demo,
   the first class in the list is used to determine level 1 HP.
 - Assumed vulnerability should also be considered along with immunity and resistance.
-- Assumed that stat bonuses stack and that multiple copies of an item are not included.
+- Assumed that stat bonuses stack and that multiple copies of an item are not included on a character.
+- Assumed that handling character death was out of scope (excessive damage, no healing if dead)
 
 ## Testing the App
 
@@ -39,6 +40,10 @@ appropriately by the UI in a production environment.
 ### Heal
 
 ### Add Temporary Hit Points
+
+### Status
+
+Returns the character's current health
 
 ### Reset
 
@@ -52,3 +57,6 @@ Restores the character to starting values
   target various fields other than a character stat.
 - Error handling - Would like to wire up some global error handling so the API returns an appropriate response
   based on the error type.
+- CharacterHealth responses could be improved to include other stats like Status (Alive, Unconscious, Dead),
+  death saves, conditions, etc.
+- Damage endpoint could check for excessive damage (character HP max) that causes character death.
