@@ -18,7 +18,7 @@ docker run --rm -d -p 8080:80 --name ddbhpmanager hpmanager
 ```
 
 Once the app is running, open a browser and navigate to
-http://localhost:8080/api/v1/character/briv
+`http://localhost:8080/api/v1/character/briv`
 in order to verify the app is running.
 
 ## Assumptions
@@ -36,25 +36,69 @@ in order to verify the app is running.
 Exceptions are surfaced in this demo app. It is assumed they would be handled
 appropriately by the UI in a production environment.
 
-### Deal Damage
+### Get Character - GET
 
-### Heal
+`http://localhost:8080/api/v1/character/briv`
 
-### Add Temporary Hit Points
+Gets json for the given character to review stats and defenses.
+Character name is not case sensitive.
+This endpoint handles missing characters appropriately with a 404.
+(See Misc Notes below for comments about error handling)
 
-### Status
+### Status - GET
 
-Returns the character's current health
+`http://localhost:8080/api/v1/character/briv/status`
 
-### Reset
+Shows the CharacterHealth object in its current state. This object is also returned by
+the Deal Damage, Heal, and Temp HP endpoints.
 
-Restores the character to starting values
+### Heal - PUT
 
-## Misc - Notes, Areas for Improvement
+`http://localhost:8080/api/v1/character/briv/heal?value=5`
+
+Heals hit points up to the character's maxHp amount.
+Negative values will raise an error.
+
+### Add Temporary Hit Points - PUT
+
+`http://localhost:8080/api/v1/character/briv/temp?value=1`
+
+Adds temporary hit points, replacing the old value only if the new value is greater.
+This endpoint allows for negative numbers to subtract any temporary hit points added by mistake.
+
+### Deal Damage - PUT
+
+`http://localhost:8080/api/v1/character/briv/damage`
+
+The damage endpoint body should contain an array of damage objects, each with its damage type
+and the amount of damage dealt:
+
+```
+[
+    {
+        "type" : "fire",
+        "value" : 6
+    },
+        {
+        "type" : "slashing",
+        "value" : 9
+    }
+]
+```
+
+In the example attack above, made with a [Flame Tongue Greatsword](https://www.dndbeyond.com/magic-items/flame-tongue), Briv should only receive 4 damage because he is immune to fire damage and has resistance to slashing damage.
+
+Other damage notes:
+
+- Negative damage values are ignored.
+- Only standard [Damage Types](https://www.dndbeyond.com/sources/basic-rules/combat#DamageTypes) are allowed (case insensitive)
+- Character defenses are applied in the following order: immunity to the damage type, modifiers (out of scope for this demo), one resistance for the damage type, one vulnerability for the damage type
+
+## Misc Notes, Areas for Improvement
 
 - Enums - Some properties such as damage types, and defense types (vulnerability, etc) were made into enums to
   assist with strongly typing things. However, it could be argued this reduces flexibility
-  in the event new types are introduced and properties could be easily changed back to strings.
+  in the event new types are introduced, so those properties could be easily changed back to strings.
   Modifer.AffectedValue was left as a string since it could potentially target various fields other than a character stat.
 - Error handling - Wire up some global error handling so the API returns an appropriate response
   based on the error type and code does not have to worry about catching/handling errors.

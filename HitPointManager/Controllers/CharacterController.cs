@@ -53,17 +53,17 @@ namespace DDB.HitPointManager.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("{name}/heal/{amount}")]
-        public ActionResult<CharacterHealth> Heal(string name, int amount)
+        [HttpPut("{name}/heal")]
+        public ActionResult<CharacterHealth> Heal(string name, int value)
         {
-            var result = _characterManager.Heal(name, amount);
+            var result = _characterManager.Heal(name, value);
             return Ok(result);
         }
 
-        [HttpPut("{name}/temp/{amount}")]
-        public ActionResult<CharacterHealth> AddTempHp(string name, int amount)
+        [HttpPut("{name}/temp")]
+        public ActionResult<CharacterHealth> AddTempHp(string name, int value)
         {
-            var result = _characterManager.AddTempHp(name, amount);
+            var result = _characterManager.AddTempHp(name, value);
             return Ok(result);
         }
 
