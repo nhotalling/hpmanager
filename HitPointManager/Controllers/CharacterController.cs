@@ -23,7 +23,7 @@ namespace DDB.HitPointManager.API.Controllers
             // Typically we'd use a Dto here instead of returning the entity
             // And it would be good to wire up a global exception handler to 
             // handle catching certain exceptions to return appropriate status codes
-            // (like 404 when and object isn't found)
+            // (like 404 when an object isn't found)
 
             var result = _characterManager.GetCharacter(name);
             if (result == null)

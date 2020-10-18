@@ -6,6 +6,7 @@ and manages its hit points.
 
 Before building and running the application, you may modify the `characters.json`
 file found in the `DDB.HitPointManager.Data/data` folder.
+Available characters in the file are `Briv`, `Jonas`, and `Artemis`.
 
 ## Running Hit Point Manager in Docker
 
@@ -27,14 +28,18 @@ in order to verify the app is running.
   A 'starting class' indicator could be added to the classes or the max HD could be used. For purposes of this demo,
   the first class in the list is used to determine level 1 HP.
 - Assumed vulnerability should also be considered along with immunity and resistance.
-- Assumed handling damage modifiers was out of scope.
+- Assumed handling damage modifiers was out of scope. (adding/subtracting values isn't supported by current `defenses` model)
 - Assumed that stat bonuses stack and that multiple copies of an item are not included on a character.
 - Assumed that handling character death was out of scope (excessive damage, no healing if dead).
+- Resistances granted by items will be reflected in the `defenses` object.
 
 ## Testing the App
 
-Exceptions are surfaced in this demo app. It is assumed they would be handled
-appropriately by the UI in a production environment.
+The various endpoints are documented below.
+For your convenience, you may import the `DDB.postman_collection.json` file into Postman to use as a starting point.
+
+Please note that exceptions are surfaced in this demo app. It is assumed they would be handled
+appropriately by the UI in a production environment. (See `Misc Notes` below for comments about error handling)
 
 ### Get Character - GET
 
@@ -43,13 +48,12 @@ appropriately by the UI in a production environment.
 Gets json for the given character to review stats and defenses.
 Character name is not case sensitive.
 This endpoint handles missing characters appropriately with a 404.
-(See Misc Notes below for comments about error handling)
 
 ### Status - GET
 
 `http://localhost:8080/api/v1/character/briv/status`
 
-Shows the CharacterHealth object in its current state. This object is also returned by
+Shows the `CharacterHealth` object in its current state. This object is also returned by
 the Deal Damage, Heal, and Temp HP endpoints.
 
 ### Heal - PUT
@@ -70,7 +74,7 @@ This endpoint allows for negative numbers to subtract any temporary hit points a
 
 `http://localhost:8080/api/v1/character/briv/damage`
 
-The damage endpoint body should contain an array of damage objects, each with its damage type
+The damage endpoint request body should contain an array of damage objects, each with its damage type
 and the amount of damage dealt:
 
 ```
@@ -106,4 +110,4 @@ Other damage notes:
   death saves, conditions, etc.
 - Damage endpoint could check for excessive damage (character HP max) that causes character death.
 - Add considerations for magic/nonmagic damage
-- Add considerations for defense allowing modifiers (eg reduce all damage by 5)
+- Add considerations for defense allowing damage modifiers (eg reduce all damage by 5)
