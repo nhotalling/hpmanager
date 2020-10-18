@@ -37,6 +37,7 @@ in order to verify the app is running.
 
 The various endpoints are documented below.
 For your convenience, you may import the `DDB.postman_collection.json` file into Postman to use as a starting point.
+You may also browse to `http://localhost:8080/swagger` to view the Swagger docs.
 
 Please note that exceptions are surfaced in this demo app. It is assumed they would be handled
 appropriately by the UI in a production environment. (See `Misc Notes` below for comments about error handling)
