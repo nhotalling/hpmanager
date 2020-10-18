@@ -13,7 +13,6 @@ namespace DDB.HitPointManager.Services
     {
         CharacterHealth AddTempHp(string name, int amount);
         CharacterHealth DealDamage(string name, IEnumerable<DamageRequest> damage);
-
         Character GetCharacter(string name);
         CharacterHealth GetStatus(string name);
         CharacterHealth Heal(string name, int amount);
@@ -56,7 +55,36 @@ namespace DDB.HitPointManager.Services
 
         public CharacterHealth DealDamage(string name, IEnumerable<DamageRequest> damage)
         {
-            throw new System.NotImplementedException();
+            var health = GetCharacterHealth(name);
+            // GetCharacterHealth has null checks for character, so we can assume character is not null
+            var character = _characterService.GetCharacter(name);
+
+            // TODO - If defenses are null, make them empty list
+
+            // Improvement - check items for defenses
+
+            if (damage != null)
+            {
+                int damageTaken;
+                foreach (var damageRequest in damage)
+                {
+                    // immunity
+
+                    // any addition / subtraction
+                    // assumed this is not relevant for demo
+
+                    // one resistance
+
+                    // one vulnerability
+                }
+
+                // apply temp hp
+
+                // apply current hp
+            }
+
+            _characterHealthService.Save(health);
+            return health;
         }
 
         public Character GetCharacter(string name)

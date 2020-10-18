@@ -55,8 +55,8 @@ Restores the character to starting values
   assist with strongly typing things. However, it could be argued this reduces flexibility
   in the event new types are introduced. Modifer.AffectedValue was left as a string since it could potentially
   target various fields other than a character stat.
-- Error handling - Would like to wire up some global error handling so the API returns an appropriate response
-  based on the error type.
+- Error handling - Wire up some global error handling so the API returns an appropriate response
+  based on the error type and code does not have to worry about catching/handling errors.
 - CharacterHealth responses could be improved to include other stats like Status (Alive, Unconscious, Dead),
   death saves, conditions, etc.
 - Damage endpoint could check for excessive damage (character HP max) that causes character death.
