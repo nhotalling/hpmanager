@@ -17,6 +17,10 @@ namespace DDB.HitPointManager.API.Controllers
             _characterManager = characterManager;
         }
 
+        /// <summary>
+        /// Gets json model for the given character to review its stats and defenses.
+        /// </summary>
+        /// <param name="name">Character name - case-insensitive</param>
         [HttpGet("{name}")]
         public ActionResult<Character> Get(string name)
         {

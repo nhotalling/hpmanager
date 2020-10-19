@@ -18,5 +18,8 @@
     <ProjectReference Include="..\DDB.HitPointManager.Services\DDB.HitPointManager.Services.csproj" />
   </ItemGroup>
 
-
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
 </Project>
