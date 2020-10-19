@@ -8,6 +8,7 @@ namespace DDB.HitPointManager.API.Controllers
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
+    [Produces("application/json")]
     public class CharacterController : ControllerBase
     {
         private readonly ICharacterManager _characterManager;
@@ -38,6 +39,10 @@ namespace DDB.HitPointManager.API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Shows a character's current HP, maximum HP, and temporary HP.
+        /// </summary>
+        /// <param name="name">Character name - case-insensitive</param>
         [HttpGet("{name}/status")]
         public ActionResult<CharacterHealth> GetStatus(string name)
         {
@@ -50,6 +55,29 @@ namespace DDB.HitPointManager.API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Deals damage to the specified character, taking into account the character's damage
+        /// immunity, vulnerability, and resistance
+        /// </summary>
+        /// <param name="name">Character name - case-insensitive</param>
+        /// <param name="damage">Array of DamageRequest objects, each with its damage type
+        /// and the value of damage dealt</param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT api/v1/character/briv/damage
+        ///     [
+        ///         {
+        ///             "type": "fire,
+        ///             "value": 6
+        ///         },
+        ///         {
+        ///             "type": "slashing",
+        ///             "value": 9
+        ///         }
+        ///     ]
+        /// 
+        /// </remarks>
         [HttpPut("{name}/damage")]
         public ActionResult<CharacterHealth> DealDamage(string name, [FromBody] IEnumerable<DamageRequest> damage)
         {
@@ -57,6 +85,11 @@ namespace DDB.HitPointManager.API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Heals hit points up to the character's maximum HP
+        /// </summary>
+        /// <param name="name">Character name - case-insensitive</param>
+        /// <param name="value">Amount to heal - must be a positive integer</param>
         [HttpPut("{name}/heal")]
         public ActionResult<CharacterHealth> Heal(string name, int value)
         {
@@ -64,6 +97,13 @@ namespace DDB.HitPointManager.API.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Adds temporary hit points, replacing the old value only if the new value is greater.
+        /// May also be used with a negative number to remove temporary HP.
+        /// </summary>
+        /// <param name="name">Character name - case-insensitive</param>
+        /// <param name="value">Add or replace current Temp HP value (does not stack; new value replaces old value if greater).
+        /// Negative values allow you to remove Temp HP.</param>
         [HttpPut("{name}/temp")]
         public ActionResult<CharacterHealth> AddTempHp(string name, int value)
         {
