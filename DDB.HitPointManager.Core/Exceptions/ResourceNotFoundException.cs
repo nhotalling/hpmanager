@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DDB.HitPointManager.Core
+namespace DDB.HitPointManager.Core.Exceptions
 {
     public class ResourceNotFoundException : Exception
     {

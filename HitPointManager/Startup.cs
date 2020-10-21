@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using DDB.HitPointManager.API.Extensions;
 using DDB.HitPointManager.Data;
 using DDB.HitPointManager.Services;
 using Microsoft.AspNetCore.Builder;
@@ -76,6 +77,14 @@ namespace DDB.HitPointManager.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            //app.ConfigureExceptionHandler(logger); // built-in
+            app.ConfigureCustomExceptionMiddleware(); // custom
+
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -85,11 +94,6 @@ namespace DDB.HitPointManager.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "HitPointManager API V1");
             });
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
 
             app.UseHttpsRedirection();
 

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using DDB.HitPointManager.Core.Exceptions;
 using DDB.HitPointManager.Domain;
 using DDB.HitPointManager.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -26,14 +28,11 @@ namespace DDB.HitPointManager.API.Controllers
         public ActionResult<Character> Get(string name)
         {
             // Typically we'd use a Dto here instead of returning the entity
-            // And it would be good to wire up a global exception handler to 
-            // handle catching certain exceptions to return appropriate status codes
-            // (like 404 when an object isn't found)
 
             var result = _characterManager.GetCharacter(name);
             if (result == null)
             {
-                return NotFound();
+                throw new ResourceNotFoundException("Character not found");
             }
 
             return Ok(result);
@@ -79,7 +78,7 @@ namespace DDB.HitPointManager.API.Controllers
         /// 
         /// </remarks>
         [HttpPut("{name}/damage")]
-        public ActionResult<CharacterHealth> DealDamage(string name, [FromBody] IEnumerable<DamageRequest> damage)
+        public ActionResult<CharacterHealth> DealDamage(string name, [Required, FromBody] IEnumerable<DamageRequest> damage)
         {
             var result = _characterManager.DealDamage(name, damage);
             return Ok(result);
@@ -91,7 +90,7 @@ namespace DDB.HitPointManager.API.Controllers
         /// <param name="name">Character name - case-insensitive</param>
         /// <param name="value">Amount to heal - must be a positive integer</param>
         [HttpPut("{name}/heal")]
-        public ActionResult<CharacterHealth> Heal(string name, int value)
+        public ActionResult<CharacterHealth> Heal(string name, [Required, FromQuery] int value)
         {
             var result = _characterManager.Heal(name, value);
             return Ok(result);
@@ -105,7 +104,7 @@ namespace DDB.HitPointManager.API.Controllers
         /// <param name="value">Add or replace current Temp HP value (does not stack; new value replaces old value if greater).
         /// Negative values allow you to remove Temp HP.</param>
         [HttpPut("{name}/temp")]
-        public ActionResult<CharacterHealth> AddTempHp(string name, int value)
+        public ActionResult<CharacterHealth> AddTempHp(string name, [Required, FromQuery] int value)
         {
             var result = _characterManager.AddTempHp(name, value);
             return Ok(result);
