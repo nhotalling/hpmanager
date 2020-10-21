@@ -182,9 +182,9 @@ namespace DDB.HitPointManager.Services
         {
             var health = GetCharacterHealth(name);
 
-            if (amount < 0)
+            if (amount < 1)
             {
-                throw new ArgumentException("Amount healed should be 0 or greater");
+                throw new ArgumentException("Amount healed should be 1 or greater");
             }
 
             // Improvement - disallow healing if character is dead

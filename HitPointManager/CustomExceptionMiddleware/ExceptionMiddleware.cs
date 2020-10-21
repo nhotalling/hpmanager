@@ -50,6 +50,13 @@ namespace DDB.HitPointManager.API.CustomExceptionMiddleware
                 context.Response.StatusCode = (int)httpException.Status;
                 message = httpException.Message;
             }
+            else if (exception is ArgumentException argException)
+            {
+                // This code isn't on the standard HttpStatusCode enums
+                // so it's probably not very recognizable. Stick with 500.
+                // context.Response.StatusCode = 420; // INVALID ARGUMENTS
+                message = argException.Message;
+            }
 
             return context.Response.WriteAsync(new ErrorDetail
             {

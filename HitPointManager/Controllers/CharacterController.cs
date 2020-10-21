@@ -32,7 +32,7 @@ namespace DDB.HitPointManager.API.Controllers
             var result = _characterManager.GetCharacter(name);
             if (result == null)
             {
-                throw new ResourceNotFoundException($"name was not found");
+                throw new ResourceNotFoundException("Character not found");
             }
 
             return Ok(result);
