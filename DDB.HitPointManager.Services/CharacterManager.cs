@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DDB.HitPointManager.Core;
+using DDB.HitPointManager.Core.Exceptions;
 using DDB.HitPointManager.Domain;
 
 namespace DDB.HitPointManager.Services
